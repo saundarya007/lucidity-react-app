@@ -84,7 +84,6 @@ function InventoryListing() {
         }
         const jsonData = dummyResponse;
         setInventoryList(jsonData);
-        console.log('dummyResponse', inventoryList)
         if (jsonData.length) {
           const uniqueCategories = new Set(jsonData.map(item => item.category));
           setWidgesCount({
