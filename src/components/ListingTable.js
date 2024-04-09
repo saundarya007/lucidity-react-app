@@ -139,8 +139,13 @@ function ListingTable(props) {
               Edit Modal
             </div>
             <div className="modal-sub-title">
-              {activeEditableColumn.name}
-              Value will automatically update when u change price or quantity
+              <div>
+                {activeEditableColumn.name}
+              </div>
+              <br></br>
+              <div>
+                Value will automatically update when u change price or quantity
+              </div>
             </div>
             <div className="input-feild">
               <div className="input-feild__section">
