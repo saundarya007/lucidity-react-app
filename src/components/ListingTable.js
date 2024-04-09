@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import EditRoundedIcon from '@mui/icons-material/EditRounded';
 import RemoveRedEyeRoundedIcon from '@mui/icons-material/RemoveRedEyeRounded';
 import VisibilityOffRoundedIcon from '@mui/icons-material/VisibilityOffRounded';
@@ -13,6 +14,8 @@ function ListingTable(props) {
   const [editedValues, setEditedValues] = useState({});
   const [isSaveDisabled, setIsSaveDisabled] = useState(true);
 
+  const isAdmin = useSelector(state => state.isAdmin);
+
   useEffect(() => {
     const isEqual = Object.keys(editedValues).every(
       key => editedValues[key] === activeEditableColumn[key]
@@ -21,10 +24,12 @@ function ListingTable(props) {
   }, [editedValues, activeEditableColumn]);
 
   const handleEditClick = index => {
-    setIsModalOpen(true);
-    setActiveEditableColumn(props.inventoryList[index]);
-    setActiveEditableColumnIndex(index);
-    setEditedValues({});
+    if (isAdmin) {
+      setIsModalOpen(true);
+      setActiveEditableColumn(props.inventoryList[index]);
+      setActiveEditableColumnIndex(index);
+      setEditedValues({});
+    }
   };
 
   const handleCloseModal = () => {
@@ -32,17 +37,21 @@ function ListingTable(props) {
   };
 
   const handleArchieveClick = index => {
-    setArchivedItems(prevArchivedItems => {
-      if (prevArchivedItems.includes(index)) {
-        return prevArchivedItems.filter(item => item !== index);
-      } else {
-        return [...prevArchivedItems, index];
-      }
-    });
+    if (isAdmin) {
+      setArchivedItems(prevArchivedItems => {
+        if (prevArchivedItems.includes(index)) {
+          return prevArchivedItems.filter(item => item !== index);
+        } else {
+          return [...prevArchivedItems, index];
+        }
+      });
+    }
   };
 
   const handleDeleteClick = index => {
-    props.deleteRow(index);
+    if (isAdmin) {
+      props.deleteRow(index);
+    }
   };
 
   const handleInputChange = (fieldName, value) => {
@@ -100,19 +109,20 @@ function ListingTable(props) {
                 <td>{row.quantity}</td>
                 <td>{row.value}</td>
                 <td>
+                  {isAdmin}
                   <div className="action">
                     <div className="icon" onClick={() => handleEditClick(index)}>
-                      <EditRoundedIcon />
+                      <EditRoundedIcon className={isAdmin ? 'admin-edit' : ''} />
                     </div>
                     <div className="icon" onClick={() => handleArchieveClick(index)}>
                       {archivedItems.includes(index) ? (
-                        <VisibilityOffRoundedIcon />
+                        <VisibilityOffRoundedIcon className={isAdmin ? 'admin-archive' : ''} />
                       ) : (
-                        <RemoveRedEyeRoundedIcon />
+                        <RemoveRedEyeRoundedIcon className={isAdmin ? 'admin-archive' : ''} />
                       )}
                     </div>
                     <div className="icon" onClick={() => handleDeleteClick(index)}>
-                      <DeleteRoundedIcon />
+                      <DeleteRoundedIcon className={isAdmin ? 'admin-delete' : ''} />
                     </div>
                   </div>
                 </td>

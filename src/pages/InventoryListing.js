@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import InfoWidges from "../components/InfoWidges";
 import ListingTable from "../components/ListingTable";
+import './scss/InventoryListing.scss';
 
 function InventoryListing() {
   const [inventoryList, setInventoryList] = useState([]);
@@ -45,11 +46,10 @@ function InventoryListing() {
     const fetchData = async () => {
       try {
         const response = await fetch('https://dev-0tf0hinghgjl39z.api.raw-labs.com/inventory', { signal });
-        
+
         if (!response.ok) {
           throw new Error('Failed to fetch data');
         }
-
         const jsonData = await response.json();
 
         if (!signal.aborted) { // Check if the component is still mounted
@@ -83,11 +83,11 @@ function InventoryListing() {
   }, []);
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <div className="loading">Loading...</div>;
   }
 
   if (error) {
-    return <div>Error: {error.message}</div>;
+    return <div className="loading">Error: {error.message}</div>;
   }
 
   return (

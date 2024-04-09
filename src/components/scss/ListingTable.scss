@@ -40,6 +40,17 @@
     .icon {
       transform: scale(0.75);
       cursor: pointer;
+      .admin {
+        &-delete {
+          color: red;
+        }
+        &-edit {
+          color: green;
+        }
+        &-archive {
+          color: palevioletred;
+        }
+      }
     }
   }
   .archived {
