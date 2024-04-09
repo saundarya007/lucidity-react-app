@@ -1,0 +1,36 @@
+.info-widges {
+  color: white;
+  display: flex;
+  max-width: 1200px;
+  margin: auto;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  padding: 24px;
+  &__card {
+    width: calc((1200px - 48px - 16px)/4);
+    max-width: 300px;
+    margin: 0 16px 16px 0;
+    height: 100px;
+    border-radius: 20px;
+    background-color: #243325;
+    padding: 20px;
+    @media (max-width: 659px) {
+      width: 100%;
+      max-width: unset;
+    }
+    &-title {
+      display: flex;
+      gap: 6px;
+      align-items: center;
+      svg {
+        transform: scale(.75);
+      }
+    }
+    &-count {
+      display: flex;
+      align-items: center;
+      font-size: 32px;
+      margin-left: 30px;
+    }
+  }
+}
