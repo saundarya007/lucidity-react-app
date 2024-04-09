@@ -1,6 +1,9 @@
 .listing-table {
   background-color: #212124;
-  margin: 24px;
+  max-width: 1200px;
+  width: calc(100vw - 16px);
+  overflow: auto;
+  margin: 24px auto;
   border-radius: 20px;
   color: rgba(255, 255, 255, 0.777);
   table {
