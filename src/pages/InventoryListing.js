@@ -104,13 +104,13 @@ function InventoryListing() {
     fetchData();
   }, []);
 
-  // if (isLoading) {
-  //   return <div>Loading...</div>;
-  // }
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
 
-  // if (error) {
-  //   return <div>Error: {error.message}</div>;
-  // }
+  if (error) {
+    return <div>Error: {error.message}</div>;
+  }
 
   return (
     <div className="inventory-listing">
